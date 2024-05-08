@@ -10,14 +10,17 @@ import {
 import { checkAccess } from "../../middlewares/checkAccess.js";
 
 export const interviewRoutes = Router();
-
+// GET Routes
 interviewRoutes.get("/all", checkAccess, getAllInterviews);
-interviewRoutes.post("/add", checkAccess, addInterview);
 interviewRoutes.get(
   "/students/:interviewId",
   checkAccess,
   getInterviewStudents
 );
+interviewRoutes.get("/export/all", checkAccess, createCsvDownloadFile);
+// POST Routes
+interviewRoutes.post("/add", checkAccess, addInterview);
+
 interviewRoutes.post(
   "/students/:interviewId",
   checkAccess,
@@ -28,4 +31,3 @@ interviewRoutes.post(
   checkAccess,
   updateInterviewResult
 );
-interviewRoutes.get("/export/all", checkAccess, createCsvDownloadFile);

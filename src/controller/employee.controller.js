@@ -5,6 +5,9 @@ import { getEmployeeRepo } from "../model/employee.repository.js";
 export const renderLogin = (req, res, next) => {
   res.render("login", { loggedIn: req.session.employee });
 };
+
+// No handler is there to add new Employees just login and logout
+
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;

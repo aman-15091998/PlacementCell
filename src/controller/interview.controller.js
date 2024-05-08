@@ -11,6 +11,7 @@ import {
 import { interviewModel } from "../model/interview.schema.js";
 import { getSingleStudentRepo } from "../model/student.repository.js";
 
+// Get all interview listings
 export const getAllInterviews = async (req, res, next) => {
   try {
     const allInterviews = await getAllInterviewRepo();
@@ -23,6 +24,7 @@ export const getAllInterviews = async (req, res, next) => {
   }
 };
 
+// Adding a new interview listings
 export const addInterview = async (req, res, next) => {
   try {
     const { interviewDate, company } = req.body;
@@ -53,6 +55,7 @@ export const addInterview = async (req, res, next) => {
   }
 };
 
+// Updating the interview result of a student
 export const updateInterviewResult = async (req, res, next) => {
   try {
     const { result } = req.body;
@@ -80,6 +83,7 @@ export const updateInterviewResult = async (req, res, next) => {
   }
 };
 
+// Getting all the students enrolled for a particular interview
 export const getInterviewStudents = async (req, res, next) => {
   try {
     const { interviewId } = req.params;
@@ -98,6 +102,7 @@ export const getInterviewStudents = async (req, res, next) => {
   }
 };
 
+// Enrolling student to an interview
 export const addStudentToInterview = async (req, res, next) => {
   try {
     const { interviewId } = req.params;
@@ -120,8 +125,8 @@ export const addStudentToInterview = async (req, res, next) => {
     return next(new ErrorHandler(500, error.message));
   }
 };
-// Student id, student name, student college, student status, DSA Final Score, WebD Final
-// Score, React Final Score, interview date, interview company, interview student result
+
+// Restructing all the interview data and creating a csv file
 export const createCsvDownloadFile = async (req, res, next) => {
   try {
     const allInterviews = await createCsvInterviewData();

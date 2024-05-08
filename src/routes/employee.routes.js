@@ -7,6 +7,8 @@ import {
 import { checkAccess } from "../../middlewares/checkAccess.js";
 
 export const employeeRoutes = Router();
+// GET Routes
 employeeRoutes.get("/login", renderLogin);
-employeeRoutes.post("/login", login);
 employeeRoutes.get("/logout", checkAccess, logout);
+// POST Routes
+employeeRoutes.post("/login", login);

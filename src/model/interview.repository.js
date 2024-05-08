@@ -11,9 +11,10 @@ export const getSinglePopulatedInterviewRepo = async (factor) => {
 
 export const createCsvInterviewData = async () => {
   const allInterviews = await interviewModel.aggregate([
-    { $unwind: "$studentList" },
+    { $unwind: "$studentList" }, //first unwinding the studentList field containing studentIds in the interviews document
     {
       $lookup: {
+        //then populating the student id in each document with student details from the students collection
         from: "students",
         localField: "studentList.student",
         foreignField: "_id",

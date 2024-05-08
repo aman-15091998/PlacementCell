@@ -15,6 +15,7 @@ export const getAllStudents = async (req, res, next) => {
   }
 };
 
+// Adding a new student
 export const addStudent = async (req, res, next) => {
   try {
     const {

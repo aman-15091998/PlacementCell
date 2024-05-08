@@ -12,6 +12,7 @@ import cors from "cors";
 import { studentRoutes } from "./src/routes/student.routes.js";
 import { interviewRoutes } from "./src/routes/interview.routes.js";
 export const app = express();
+
 app.use(cookieParser());
 app.use(
   expressSession({
@@ -22,12 +23,18 @@ app.use(
   })
 );
 app.use(cors());
+// Setting up express for parsing req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// Making public folder publically accessible
 app.use(express.static(path.resolve("public")));
+
+// ejs setup
 app.set("view engine", "ejs");
 app.set("views", path.resolve("src", "view"));
 app.use(expressEjsLayouts);
+
+// Homepage
 app.get("/", (req, res, next) => {
   res.render("index", { loggedIn: req.session.employee });
 });

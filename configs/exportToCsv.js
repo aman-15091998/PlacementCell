@@ -15,11 +15,7 @@ export const getDownloadableCSVFile = async (data) => {
   const filename = `${csvConfig.filename}.csv`;
   const csvBuffer = new Uint8Array(Buffer.from(asString(csv)));
 
-  // Write the csv file to disk
-  //   writeFile(filename, csvBuffer, (err) => {
-  //     if (err) throw err;
-  //     console.log("file saved: ", filename);
-  //   });
+  // Writing the data to the file and returning the filepath
   await fsPromises.writeFile(filename, csvBuffer);
   return path.resolve(`${filename}`);
 };
