@@ -12,7 +12,7 @@ export const getDownloadableCSVFile = async (data) => {
 
   // Converts your Array<Object> to a CsvOutput string based on the configs
   const csv = generateCsv(csvConfig)(data);
-  const filename = path.resolve("public", "CSV", `${csvConfig.filename}.csv`);
+  const filename = `${csvConfig.filename}.csv`;
   const csvBuffer = new Uint8Array(Buffer.from(asString(csv)));
 
   // Write the csv file to disk
@@ -21,5 +21,5 @@ export const getDownloadableCSVFile = async (data) => {
   //     console.log("file saved: ", filename);
   //   });
   await fsPromises.writeFile(filename, csvBuffer);
-  return filename;
+  return path.resolve(`${filename}`);
 };
