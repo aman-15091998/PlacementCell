@@ -144,21 +144,22 @@ export const createCsvDownloadFile = async (req, res, next) => {
     if (data.length == 0)
       return next(new ErrorHandler(400, "No data is there"));
     const filepath = await getDownloadableCSVFile(data);
-    res.download(filepath, (err) => {
-      if (err) {
-        console.log("Error in downloading file" + err);
-      } else {
-        const fsPromises = fs.promises;
-        fsPromises
-          .unlink(filepath)
-          .then(() => {
-            console.log("File is deleted");
-          })
-          .catch((error) => {
-            console.error("Error deleting file", error);
-          });
-      }
-    });
+    res.download(filepath);
+    // res.download(filepath, (err) => {
+    //   if (err) {
+    //     console.log("Error in downloading file" + err);
+    //   } else {
+    //     const fsPromises = fs.promises;
+    //     fsPromises
+    //       .unlink(filepath)
+    //       .then(() => {
+    //         console.log("File is deleted");
+    //       })
+    //       .catch((error) => {
+    //         console.error("Error deleting file", error);
+    //       });
+    //   }
+    // });
   } catch (error) {
     return next(new ErrorHandler(500, error.message));
   }
