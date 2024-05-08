@@ -1,0 +1,94 @@
+
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary mt-2 mx-2"
+  data-bs-toggle="modal"
+  data-bs-target="#add-student"
+>
+  Add Interview
+</button>
+<a
+  href="/interview/export/all"
+  class="btn btn-primary mt-2 mx-2"
+>
+  Export All Data as CSV
+</a>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="add-student"
+  data-bs-backdrop="static" data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Interview</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+        <form
+          action="/interview/add"
+          method="POST"
+          enctype="application/x-www-form-urlencoded"
+        >
+        <div class="modal-body">
+        
+          <div class="mb-3">
+            <label for="interviewDate" class="form-label">Date of Interview</label>
+            <input
+              type="Date"
+              class="form-control"
+              id="interviewDate"
+              name="interviewDate"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="company" class="form-label">Company</label>
+            <input
+              type="text"
+              class="form-control"
+              id="company"
+              name="company"
+              required
+            />
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+<h2 class="text-center">All Interviews</h2>
+<div class="interviews">
+<%if(allInterviews.length==0){%>
+<h3 class="mt-1 text-center">No interviews found</h3>
+<%}%>
+ <%if(allInterviews.length>0){%>
+    <%allInterviews.forEach(interview=>{%>
+        <div class="card mx-2 my-2" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title"><%= interview.company%></h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">Dated on:<%= interview.interviewDate %></h6>
+              <a href="/interview/students/<%= interview._id %>" class="card-link">All Students</a>
+            </div>
+          </div>
+    <% })%>
+  </div>
+<%}%>
+
+</div>

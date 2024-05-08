@@ -1,0 +1,123 @@
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary mx-2 mt-2"
+  data-bs-toggle="modal"
+  data-bs-target="#add-student"
+>
+  Add Student
+</button>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="add-student"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add student</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form
+        action="/interview/students/<%=interview._id%>"
+        method="POST"
+        enctype="application/x-www-form-urlencoded"
+      >
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="student" class="form-label">Student Id</label>
+            <input
+              type="text"
+              class="form-control"
+              id="student"
+              name="student"
+              required
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<h3 class="text-center">
+  Interview at <%=interview.company%>, dated on <%=interview.interviewDate%>
+</h3>
+<%if(interview.studentList.length==0){%>
+<h2 class="text-center">No students are there</h2>
+<%}%> <%if(interview.studentList.length>0){%>
+<h2 class="text-center">All students</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Batch</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">College</th>
+      <th scope="col">Placement Status</th>
+      <th scope="col">DSA Final Score</th>
+      <th scope="col">WebD Final Score</th>
+      <th scope="col">React Final Score</th>
+      <th scope="col">Result</th>
+      <th scope="col">Update Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%interview.studentList.forEach(obj=>{%>
+    <tr>
+      <td><%= obj.student._id %></td>
+      <td><%= obj.student.batchName %></td>
+      <td><%= obj.student.name %></td>
+      <td><%= obj.student.email %></td>
+      <td><%= obj.student.college %></td>
+      <td><%= obj.student.placementStatus %></td>
+      <td><%= obj.student.courseScores.DSAScore %></td>
+      <td><%= obj.student.courseScores.WebDScore %></td>
+      <td><%= obj.student.courseScores.ReactScore %></td>
+      <td><%= obj.result %></td>
+      <td>
+        <form
+          action="/interview/update-result/<%=interview._id%>/<%=obj.student._id%>"
+          method="POST"
+          enctype="application/x-www-form-urlencoded"
+        >
+          <select
+            name="result"
+            id="result"
+            class="form-select"
+            aria-label="Default select example"
+          >
+            <option value="PASS">PASS</option>
+            <option value="FAIL">FAIL</option>
+            <option value="On Hold">On Hold</option>
+            <option value="Didn't Attempt">Didn't Attempt</option>
+          </select>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </td>
+    </tr>
+    <% })%>
+  </tbody>
+</table>
+<%}%>

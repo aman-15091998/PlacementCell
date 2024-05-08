@@ -1,0 +1,42 @@
+<%if(!loggedIn){%>
+<main>
+  <div class="container login-container">
+    <h2 class="mt-4 text-center">Login as an Employee</h2>
+    <form
+      action="/employee/login"
+      method="POST"
+      enctype="application/x-www-form-urlencoded"
+    >
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          aria-describedby="emailHelp"
+          required
+        />
+        <div id="emailHelp" class="form-text">
+          We'll never share your email with anyone else.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+          id="password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary" id="login-btn">
+        Submit
+      </button>
+    </form>
+  </div>
+</main>
+<%}%> <%if(loggedIn){%>
+<h2 class="mt-5 text-center">You are logged in as <%=loggedIn.name%></h2>
+<%}%>
